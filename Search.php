@@ -62,7 +62,11 @@
                 // output data of each row
                     while($row = $result->fetch_assoc()) {
                         echo "<div class='card'>";
-                        echo "<img src='bilder/".$row['picture'].".jpg' alt='' style='width:100%'>";
+                        echo "<picture>";
+                        echo "<source media='(min-width: 900px)' srcset='mobile-img/".$row['picture'].".jpg'>";
+                        echo "<source media='(min-width: 200px)' srcset='bilder/".$row['picture'].".jpg'>";
+                        echo "<img src='blomma.jpg' style='width:100%;'>";
+                        echo "</picture>";
                         echo "<h2>".$row['name']."</h2>";
                         echo "<p class='pris'>".$row['price']." kr</p>";
                         echo "<p class='articlenr'>Artikelnummer: ".$row['articlenr']."</p>";
@@ -100,7 +104,11 @@
                 // output data of each row
                     while($row = $result->fetch_assoc()) {
                         echo "<div class='card'>";
-                        echo "<img src='bilder/".$row['picture'].".jpg' alt='' style='width:100%'>";
+                        echo "<picture>";
+                        echo "<source media='(min-width: 900px)' srcset='mobile-img/".$row['picture'].".jpg'>";
+                        echo "<source media='(min-width: 200px)' srcset='bilder/".$row['picture'].".jpg'>";
+                        echo "<img src='blomma.jpg' style='width:100%;'>";
+                        echo "</picture>";
                         echo "<h2>".$row['name']."</h2>";
                         echo "<p class='pris'>".$row['price']." kr</p>";
                         echo "<p class='articlenr'>Artikelnummer: ".$row['articlenr']."</p>";
