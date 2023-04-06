@@ -58,8 +58,8 @@
           while($row = $result->fetch_assoc()) {
             echo "<div class='card'>";
             echo "<picture>";
-            echo "<source media='(min-width: 900px)' srcset='mobile-img/".$row['picture'].".jpg'>";
-            echo "<source media='(min-width: 200px)' srcset='bilder/".$row['picture'].".jpg'>";
+            echo "<source media='(min-width: 900px)' srcset='Desktop/".$row['picture'].".jpg'>";
+            echo "<source media='(max-width: 900px)' srcset='Mobile/".$row['picture'].".jpg'>";
             echo "<img src='blomma.jpg' style='width:100%;'>";
             echo "</picture>";
             echo "<h2>".$row['name']."</h2>";
