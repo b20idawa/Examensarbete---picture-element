@@ -36,7 +36,7 @@
           </a>
         </div> 
       </div>
-      <div class="products">
+      <div class='products'>
         <?php
             $servername = "localhost";
             $username = "root";
@@ -55,16 +55,27 @@
             {
                 
                 $search = $_POST['word'];
-                $stmt = "select * from Products where name like '%$search%'";
-        
+                $stmt = "SELECT * FROM Products WHERE name LIKE '%$search%'";
+             
+                $count = "SELECT COUNT(articlenr) AS 'hitCount' FROM Products where name LIKE '%$search%'";
+          
+                $countResult = $conn->query($count);
+                $hitResult = $countResult->fetch_assoc();
+                echo "<p>";
+                echo $hitResult['hitCount']." träffar.";
+                echo "</p>";
+               
+                define('XOAUTH_USERNAME', $hitResult['hitCount']);
+                
                 $result = $conn->query($stmt);
                 if ($result->num_rows > 0) {
                 // output data of each row
+      
                     while($row = $result->fetch_assoc()) {
                         echo "<div class='card'>";
                         echo "<picture>";
-                        echo "<source media='(min-width: 900px)' srcset='mobile-img/".$row['picture'].".jpg'>";
-                        echo "<source media='(min-width: 200px)' srcset='bilder/".$row['picture'].".jpg'>";
+                        echo "<source media='(min-width: 900px)' srcset='Desktop/".$row['picture'].".jpg'>";
+                        echo "<source media='(max-width: 900px)' srcset='Mobile/".$row['picture'].".jpg'>";
                         echo "<img src='blomma.jpg' style='width:100%;'>";
                         echo "</picture>";
                         echo "<h2>".$row['name']."</h2>";
@@ -97,16 +108,16 @@
                 $article = $_POST['articlenr'];
                 $searchValue = $_POST['searchValue'];
 
-                $stmt = "select * from Products where name like '%$searchValue%'";
-        
+                $stmt = "SELECT * FROM Products WHERE name LIKE '%$searchValue%'";
+                
                 $result = $conn->query($stmt);
                 if ($result->num_rows > 0) {
                 // output data of each row
                     while($row = $result->fetch_assoc()) {
                         echo "<div class='card'>";
                         echo "<picture>";
-                        echo "<source media='(min-width: 900px)' srcset='mobile-img/".$row['picture'].".jpg'>";
-                        echo "<source media='(min-width: 200px)' srcset='bilder/".$row['picture'].".jpg'>";
+                        echo "<source media='(min-width: 900px)' srcset='Desktop/".$row['picture'].".jpg'>";
+                        echo "<source media='(max-width: 900px)' srcset='Mobile/".$row['picture'].".jpg'>";
                         echo "<img src='blomma.jpg' style='width:100%;'>";
                         echo "</picture>";
                         echo "<h2>".$row['name']."</h2>";
@@ -151,6 +162,10 @@
               }
             
         ?> 
-        </div> 
+        </div>
+        <script>
+
+        localStorage.setItem('hits', '<?=XOAUTH_USERNAME?>'); 
+        </script>
 </body>
 </html>
